@@ -7,8 +7,9 @@ import Image from "next/image";
 import { Button } from "./ui/button";
 import DisplayTechIcons from "./DisplayTechIcons";
 
+
 import { cn, getRandomInterviewCover } from "@/lib/utils";
-// import { getFeedbackByInterviewId } from "@/lib/actions/general.action";
+import { getFeedbackByInterviewId } from "@/lib/actions/general.action";
 
 const InterviewCard = async ({
  id,
@@ -18,24 +19,24 @@ const InterviewCard = async ({
   techstack,
   createdAt,
 }: InterviewCardProps) => {
-  const feedback = null as Feedback | null;
+  const feedback = 
 
 
-    // userId && interviewId
-    //   ? await getFeedbackByInterviewId({
-    //       interviewId,
-    //       userId,
-    //     })
-    //   : null;
+    userId && id
+      ? await getFeedbackByInterviewId({
+          interviewId:id,
+          userId,
+        })
+      : null;
 
   const normalizedType = /mix/gi.test(type) ? "Mixed" : type;
 
-  // const badgeColor =
-  //   {
-  //     Behavioral: "bg-light-400",
-  //     Mixed: "bg-light-600",
-  //     Technical: "bg-light-800",
-  //   }[normalizedType] || "bg-light-600";
+  const badgeColor =
+    {
+      Behavioral: "bg-light-400",
+      Mixed: "bg-light-600",
+      Technical: "bg-light-800",
+    }[normalizedType] || "bg-light-600";
 
   const formattedDate = dayjs(
     feedback?.createdAt || createdAt || Date.now()
